@@ -48,8 +48,27 @@ def main():
 
 # This function will load the users.csv file into the users table, discarding any records with incomplete data
 def load_and_clean_users(file_path):
+    with open(file_path, 'r', newline='') as csvfile:
+        reader = csv.reader(csvfile)
+        header = next(reader, None)
 
-    print("TODO: load_users")
+        expected_fields = len(header)
+        for row in reader:
+            row = [field.strip() for field in row]
+            if len(row) != expected_fields:
+                continue
+            if any(field == '' for field in row):
+                continue
+            
+            try:
+                firstName = row[0]
+                lastName = row[1]
+                cursor.execute(
+                    "INSERT INTO users (firstName, lastName) VALUES (?, ?)",
+                    (firstName, lastName)
+                )
+            except sqlite3.error:
+                continue
 
 
 # This function will load the callLogs.csv file into the callLogs table, discarding any records with incomplete data
