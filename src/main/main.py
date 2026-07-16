@@ -112,6 +112,7 @@ def write_user_analytics(csv_file_path):
     rows = cursor.fetchall()
     with open(csv_file_path, 'w', newline='') as f:
         writer = csv.writer(f)
+        writer.writerow(['userId', 'avgDuration', 'numCalls'])
         for row in rows:
             writer.writerow([row[0], round(float(row[1]), 1), row[2]])
     
