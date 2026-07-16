@@ -52,7 +52,7 @@ def load_and_clean_users(file_path):
         reader = csv.reader(csvfile)
         header = next(reader, None)
 
-        expected_fields = len(header)
+        expected_fields = 2
         for row in reader:
             row = [field.strip() for field in row]
             if len(row) != expected_fields:
@@ -77,7 +77,7 @@ def load_and_clean_call_logs(file_path):
         reader = csv.reader(csvfile)
         header = next(reader, None)
 
-        expected_fields = len(header)
+        expected_fields = 5
         for row in reader:
             row = [field.strip() for field in row]
             if len(row) != expected_fields:
